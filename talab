@@ -1,0 +1,25 @@
+ findViewById<Button>(R.id.bt1).setOnClickListener {
+
+            Dexter.withContext(this@MainActivity)
+                .withPermissions(
+                    android.Manifest.permission.READ_CONTACTS,
+                    android.Manifest.permission.WRITE_CONTACTS
+
+                )
+                .withListener(
+                    object : MultiplePermissionsListener {
+                        override fun onPermissionsChecked(p0: MultiplePermissionsReport?)
+                        {
+                            getContactListFromLocal()
+
+                        }
+
+                        override fun onPermissionRationaleShouldBeShown(
+                            p0: MutableList<PermissionRequest>?,
+                            p1: PermissionToken?
+                        ) {
+                            p1?.continuePermissionRequest()
+                        }
+
+                    })
+        }
